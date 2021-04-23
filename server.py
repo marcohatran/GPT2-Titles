@@ -66,12 +66,13 @@ def generate():
 
     while 'output' not in req:
         time.sleep(CHECK_INTERVAL)
-    
-    title = {'title': req['output'].split("title")[-1] }
+    try:
+      
+      title = {'title': req['output'].split("title")[-1]}
 
     except Exception:
-        return jsonify({'error': 'Fail'}), 400
-    
+        print("Empty Text")
+        return jsonify({'error': 'Fail'}), 400    
     
     return jsonify(title)
   
