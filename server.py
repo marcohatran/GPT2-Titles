@@ -57,7 +57,7 @@ def generate():
 
     except Exception:
         print("Empty Text")
-        return Response("fail", status=400)
+        return jsonify({'error': 'Fail'}), 400
 
     req = {
         'input': args
@@ -66,8 +66,16 @@ def generate():
 
     while 'output' not in req:
         time.sleep(CHECK_INTERVAL)
+    
+    title = {'title': req['output'].split("title")[-1] }
 
-    return req['output']
+    except Exception:
+        return jsonify({'error': 'Fail'}), 400
+    
+    
+    return jsonify(title)
+  
+
 
 
 # Health Check
