@@ -1,4 +1,4 @@
-from transformers import AutoModelWithLMHead, AutoTokenizer, top_k_top_p_filtering
+from transformers import pipeline
 import torch
 from flask import Flask, request, Response, jsonify
 from flask import Flask, render_template, request, Response, send_file, jsonify
@@ -15,8 +15,7 @@ requests_queue = Queue()
 BATCH_SIZE = 1
 CHECK_INTERVAL = 0.1
 
-device = torch.device(0 if torch.cuda.is_available() else -1)
-
+device = 0 if torch.cuda.is_available() else -1
 pipe = pipeline('text-generation', model="QianWeiTech/GPT2-Titles",
                  tokenizer="QianWeiTech/GPT2-Titles"
                  ,device=device)
@@ -31,14 +30,14 @@ def handle_requests_by_batch():
                 continue
 
             for requests in requests_batch:
-                requests['output'] = run_model(requests['input'][0]+":")
+                requests['output'] = run_model(requests['input'][0])
 
 
 threading.Thread(target=handle_requests_by_batch).start()
 
 def run_model(prompt, num=1, length=30):
     try:
-        generated_texts = pipe(prompt, pad_token_id=50256,do_sample=True, early_stopping=True, top_k=50, top_p=.9, min_length=10,max_length=100)
+        generated_texts = pipe(prompt, pad_token_id=50256,do_sample=True, early_stopping=True, top_k=50, top_p=.9, min_length=10,max_length=100)[0]["generated_text"]
         return generated_texts
 
     except Exception as e:
