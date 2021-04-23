@@ -9,8 +9,8 @@ GPT2-Titles
  How to use
  ===============
  * by using html
-	* first enter your start message
-	* then checkout the messages.
+	* first enter your start tags
+	* then checkout the title
 * by using api
 	* you can add /generate?query={your tags} at the end of the url
 	
