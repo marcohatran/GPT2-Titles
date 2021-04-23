@@ -47,7 +47,7 @@
                  function printName()  {
                    const review = document.getElementById('review').value;
 
-                   fetch('/generate?input='+review).then(function(response){
+                   fetch('/generate?query='+review).then(function(response){
                      response.text().then(function(text){
                        document.getElementById("result").innerText = text;
                      })
