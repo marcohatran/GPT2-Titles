@@ -68,7 +68,7 @@ def generate():
         time.sleep(CHECK_INTERVAL)
     try:
       
-      title = {'title ': req['output'].split("title")[-1]}
+      title = {'title ': req['output'].split("title")[-1], 'device':device}
 
     except Exception:
         print("Empty Text")
