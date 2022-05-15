@@ -1,3 +1,6 @@
 transformers
 flask
 waitress
+streamlit
+requests
+
