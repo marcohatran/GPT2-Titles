@@ -4,7 +4,7 @@ import streamlit as st
 import requests
 
 def title_generator(text):
-    url = f"http://localhost/generate?query={text}"
+    url = f"http://localhost:8400/generate?query={text}"
 
     payload = {}
     headers = {}
